@@ -18,14 +18,12 @@ class WordCount(mrs.MapReduce):
 
     def map(self, key, value):
 
-        # Encode necessaire sous windows / docker remove si unix
-        print(value.encode('utf8'))
-        enc = value.encode('utf8')
+        print(value.encode('utf-8'))
+        enc = value
         print('\n ----------------------------------------------------------------- \n')
 
         buffer = ''
         for char in enc:
-            print(char)
             if char == ' ' or char.isalpha():
                 buffer += char
 
