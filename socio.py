@@ -19,9 +19,9 @@ class WordCount(mrs.MapReduce):
     def map(self, key, value):
 
         #print(value.encode('utf-8'))
+        # print('\n ----------------------------------------------------------------- \n')
         enc = value.split(',')
-        #print('\n ----------------------------------------------------------------- \n')
-        #print(enc[0])
+        # print(enc[0])
         imc = 0
         id = '"id"'
         if enc[0] != id and int(enc[1]) >= 18:
@@ -32,15 +32,20 @@ class WordCount(mrs.MapReduce):
             yield enc[4], imc
 
     def reduce(self, key, value):
-        buffer = 0
-        count = 0
+        minimc = 200
+        maximc, buffer, count = 0, 0, 0
         for imc in tuple(value):
-            #print(imc)
+            # print(imc)
+            if minimc > imc:
+                minimc = imc
+            if maximc < imc:
+                maximc = imc
             count += 1
             buffer += imc
 
         avg = buffer / count
-        yield avg
+        imcstats = (avg, minimc, maximc)
+        yield imcstats
 
 
 if __name__ == '__main__':
