@@ -9,7 +9,7 @@ import re
 class WordCount(mrs.MapReduce):
 
     def input_data(self, job):
-        repo = sys.argv[1]
+        repo = self.args[0]
         print(repo)
         fileList = glob.glob(repo + '/*.txt')
         print(fileList)
@@ -18,9 +18,9 @@ class WordCount(mrs.MapReduce):
 
     def map(self, key, value):
 
-        print(value.encode('utf-8'))
+        #print(value.encode('utf-8'))
         enc = value
-        print('\n ----------------------------------------------------------------- \n')
+        #print('\n ----------------------------------------------------------------- \n')
 
         buffer = ''
         for char in enc:
@@ -32,13 +32,12 @@ class WordCount(mrs.MapReduce):
             if word == '' or word == ' ' or word == ",":
                 tab.remove(word)
 
-        print(tab)
-        print('\n ----------------------------------------------------------------- \n')
-        print(len(tab))
-        print('\n ----------------------------------------------------------------- \n')
+        #print(tab)
+        #print('\n ----------------------------------------------------------------- \n')
+        #print(len(tab))
+        #print('\n ----------------------------------------------------------------- \n')
 
         for word in tab:
-            #print(word)
             yield word, 1
 
     def reduce(self, key, value):

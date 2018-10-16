@@ -9,7 +9,7 @@ import re
 class WordCount(mrs.MapReduce):
 
     def input_data(self, job):
-        repo = sys.argv[1]
+        repo = self.args[0]
         print(repo)
         fileList = glob.glob(repo + '/*.csv')
         print(fileList)
