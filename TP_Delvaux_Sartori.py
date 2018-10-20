@@ -19,6 +19,7 @@ class WordCount(mrs.MapReduce):
         splited = re.split('[\W0-9]', value, flags=re.UNICODE)
         for i in splited:
             if (i != ''):
+                i = i.lower()
                 # print(i)
                 yield i, 1
 
